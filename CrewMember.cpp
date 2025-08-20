@@ -25,7 +25,7 @@ CCrewMember::CCrewMember(const string& n, const CAddress& ad, const int at) :
 }
 
 CCrewMember::CCrewMember(const string& n, const CAddress& ad) : name(n), address(ad), airTime(0)
-{// continue this func and new unit tests to check it
+{
     if (n.length() > 0 || ad.isValidAddress(ad.getHomeNumber(), ad.getStreet(), ad.getCity()))
     {
         name = n;
@@ -84,7 +84,6 @@ bool CCrewMember::UpdateMinutes(const int airTime)
 
 void CCrewMember::Print() const
 {
-    //Crewmember Momo minutes 125
     cout << "Crewmember " << name << " minutes " << airTime << endl;
 }
 
