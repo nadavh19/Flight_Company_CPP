@@ -11,7 +11,7 @@ class CFlightInfo
 {
 private:
 	int number;
-	string destanation;
+	string destination;
 	int durationMinutes;
 	int distanceKm;
 
@@ -25,7 +25,7 @@ public:
 	int getNumber() const;
 	int getDurationMinutes() const;
 	int getDistanceKm() const;
-	string getDestanation() const;
+	string getDestination() const;
 	void setNumber(const int num);
 	void setDurationMinutes(const int minutes);
 	void setDistanceKm(const int distance);

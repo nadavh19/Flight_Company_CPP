@@ -12,19 +12,19 @@ bool CFlightInfo::isValidFlightInfo(const int number, const string& destanation,
 
 
 CFlightInfo::CFlightInfo(const string& dest, const int num, const int minutes, const int distance) :
-    number(0), destanation(""), durationMinutes(0), distanceKm(0)
+    number(0), destination(""), durationMinutes(0), distanceKm(0)
 {
     if (isValidFlightInfo(num, dest, minutes, distance))
     {
         number = num;
-        destanation = dest;
+        destination = dest;
         durationMinutes = minutes;
         distanceKm = distance;
     }
 }
 
 CFlightInfo::CFlightInfo(const CFlightInfo& other) :
-    number(other.number), destanation(other.destanation), durationMinutes(other.durationMinutes), distanceKm(other.distanceKm)
+    number(other.number), destination(other.destination), durationMinutes(other.durationMinutes), distanceKm(other.distanceKm)
 {
 }
 
@@ -43,9 +43,9 @@ int CFlightInfo::getDistanceKm() const
     return distanceKm;
 }
 
-string CFlightInfo::getDestanation() const
+string CFlightInfo::getDestination() const
 {
-    return destanation;
+    return destination;
 }
 
 void CFlightInfo::setNumber(const int num)
@@ -72,13 +72,14 @@ void CFlightInfo::setDistanceKm(const int distance)
     }
 }
 
-void CFlightInfo::SetDest(const string& dest)
+void CFlightInfo::SetDest(const string& val)
 {
-    if (dest.length() > 0)
-    {
-        destanation = dest;
+    if (val.empty()) {
+        destination = "Unknown";
     }
-
+    else {
+        destination = val;
+    }
 }
 
 bool CFlightInfo::IsEqual(const CFlightInfo& cfi) const
@@ -88,7 +89,7 @@ bool CFlightInfo::IsEqual(const CFlightInfo& cfi) const
 
 void CFlightInfo::Print() const
 {
-    cout << "Flight Info dest: " << destanation << " Number " << number
+    cout << "Flight Info dest: " << destination << " Number " << number
         << " minutes " << durationMinutes << " KM " << distanceKm << endl;
 }
 
