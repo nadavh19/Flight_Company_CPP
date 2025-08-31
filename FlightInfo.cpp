@@ -14,13 +14,11 @@ bool CFlightInfo::isValidFlightInfo(const int number, const string& destanation,
 CFlightInfo::CFlightInfo(const string& dest, const int num, const int minutes, const int distance) :
     number(0), destination(""), durationMinutes(0), distanceKm(0)
 {
-    if (isValidFlightInfo(num, dest, minutes, distance))
-    {
-        number = num;
-        destination = dest;
-        durationMinutes = minutes;
-        distanceKm = distance;
-    }
+    setNumber(num);
+    SetDest(dest);
+    setDurationMinutes(minutes);
+    setDistanceKm(distance);
+    
 }
 
 CFlightInfo::CFlightInfo(const CFlightInfo& other) :

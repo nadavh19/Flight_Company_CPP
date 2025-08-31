@@ -18,7 +18,7 @@ CCrewMember::CCrewMember(const string& n, const CAddress& ad, const int at) :
 {
     if (isValidCrewMember(n, ad, at))
     {
-        name = n;
+        setName(n);
         airTime = at;
     }
 
