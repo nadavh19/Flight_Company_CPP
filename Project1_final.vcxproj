@@ -127,19 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Address.h" />
-    <ClInclude Include="CrewMember.h" />
-    <ClInclude Include="FlightCompany.h" />
-    <ClInclude Include="FlightInfo.h" />
-    <ClInclude Include="Plane.h" />
+    <ClInclude Include="CAddress.h" />
+    <ClInclude Include="CCrewMember.h" />
+    <ClInclude Include="CFlightCompany.h" />
+    <ClInclude Include="CFlightInfo.h" />
+    <ClInclude Include="CPlane.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Address.cpp" />
-    <ClCompile Include="CrewMember.cpp" />
-    <ClCompile Include="FlightCompany.cpp" />
-    <ClCompile Include="FlightInfo.cpp" />
+    <ClCompile Include="CAddress.cpp" />
+    <ClCompile Include="CCrewMember.cpp" />
+    <ClCompile Include="CFlightCompany.cpp" />
+    <ClCompile Include="CFlightInfo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="CPlane.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

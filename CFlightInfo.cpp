@@ -1,4 +1,4 @@
-#include "FlightInfo.h"
+#include "CFlightInfo.h"
 
 
 bool CFlightInfo::isValidFlightInfo(const int number, const string& destanation, const int durationMinutes, const int distanceKm) const

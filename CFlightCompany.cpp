@@ -1,4 +1,4 @@
-#include "FlightCompany.h"
+#include "CFlightCompany.h"
 
 CFlightCompany::CFlightCompany(const string& name) : name("")
 {
