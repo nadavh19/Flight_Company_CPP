@@ -30,9 +30,15 @@ public:
 	void setDurationMinutes(const int minutes);
 	void setDistanceKm(const int distance);
 	void SetDest(const string& dest);
-	bool IsEqual(const CFlightInfo& cfi) const;
-	void Print() const;
 	bool isValidFlightInfo(const int, const string&, const int, const int) const;
+
+
+	//OPS
+	friend std::ostream& operator<<(std::ostream& os, const CFlightInfo& cfi);
+	CFlightInfo& operator=(const CFlightInfo& other);
+	bool operator==(const CFlightInfo& other)const;
+	bool operator!=(const CFlightInfo& other)const;
+	operator int() const;
 
 
 

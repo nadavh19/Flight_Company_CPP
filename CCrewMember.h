@@ -15,7 +15,9 @@ private:
 	string name;
 	int airTime;
 	CAddress address;
-
+	int id;
+	static int nextId;
+	
 
 
 public:
@@ -31,8 +33,15 @@ public:
 	void setName(const string& diffname);
 	void setAddress(const CAddress& ad);
 	bool UpdateMinutes(const int airTime);
-	void Print() const;
-	bool IsEqual(const CCrewMember& cm) const;
 	bool isValidCrewMember(const string& n, const CAddress& ad, const int at)const;
+
+	CCrewMember& operator=(const CCrewMember& other);
+	bool operator==(const CCrewMember& other) const;
+	friend std::ostream& operator<<(std::ostream& os, const CCrewMember& cmr);
+	CCrewMember& operator+=(const int minutes);
+
+
+
+
 };
 

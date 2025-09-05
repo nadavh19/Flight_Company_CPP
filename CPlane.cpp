@@ -1,21 +1,55 @@
 #include "CPlane.h"
 
 
+int CPlane::s_nextSerial = 100;
 
-bool CPlane::isValidPlane(const int serialNum, const int numOfChairs, const string& model) const
+
+
+bool CPlane::isValidPlane(const int numOfChairs, const string& model) const
 {
-	if (serialNum <= 0 || numOfChairs <= 0 || model == "")
+	if (numOfChairs <= 0 || model == "")
 	{
 		return false;
 	}
 	return true;
 }
 
-CPlane::CPlane(const int serialNum, const int numOfChairs, const string& model) : serialNum(0), model(""), numOfChairs(0)
+CPlane& CPlane::operator=(const CPlane& other)
 {
-	if (isValidPlane(serialNum, numOfChairs, model))
+	if (this != &other)
 	{
-		this->serialNum = serialNum;
+		model = other.model;
+		numOfChairs = other.numOfChairs;
+		serialNum = s_nextSerial; 
+		
+
+	}
+	return *this;
+}
+
+CPlane& CPlane::operator++()
+{
+	++numOfChairs;
+	return *this;
+}
+
+CPlane CPlane::operator++(int)
+{
+	CPlane old = *this;
+	++(*this);
+	return old;
+
+}
+
+bool CPlane::operator==(const CPlane& other) const
+{
+	return serialNum == other.serialNum;
+}
+
+CPlane::CPlane(const int numOfChairs, const string& model) : serialNum(s_nextSerial++), model(""), numOfChairs(0)
+{
+	if (isValidPlane(numOfChairs, model))
+	{
 		this->model = model;
 		this->numOfChairs = numOfChairs;
 	}
@@ -23,6 +57,7 @@ CPlane::CPlane(const int serialNum, const int numOfChairs, const string& model) 
 
 CPlane::CPlane(const CPlane& other) : serialNum(other.serialNum), model(other.model), numOfChairs(other.numOfChairs)
 {
+	
 }
 
 int CPlane::getSerialNum() const
@@ -38,23 +73,13 @@ int CPlane::getNumOfChairs() const
 	return numOfChairs;
 }
 
-void CPlane::Print() const
-{
-	cout << "Plane " << serialNum << " " << model << " " << numOfChairs << endl;
-}
-
-bool CPlane::IsEqual(const CPlane& cp) const
-{
-	return serialNum == cp.serialNum;
-}
 
 CPlane::~CPlane()
 {
 }
 
-
-
-
-
-
-
+std::ostream& operator<<(std::ostream& os, const CPlane& p)
+{
+	os << "Plane " << p.serialNum << " " << p.model << " " << p.numOfChairs << endl;
+	return os;
+}

@@ -1,4 +1,5 @@
 #include "CAddress.h"
+#include <string>
 
 
 
@@ -30,6 +31,11 @@ bool CAddress::operator==(const CAddress& other) const
 bool CAddress::operator!=(const CAddress& other) const
 {
     return !(*this == other);
+}
+
+string CAddress::getCurrentAddress() const
+{
+    return std::to_string(homeNumber) + " " + street + ", " + city;
 }
 
 

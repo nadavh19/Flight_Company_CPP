@@ -10,6 +10,33 @@ bool CFlightInfo::isValidFlightInfo(const int number, const string& destanation,
     return true;
 }
 
+CFlightInfo& CFlightInfo::operator=(const CFlightInfo& other)
+{
+    if (*this != other)
+    {
+        number = other.number;
+        destination = other.destination;
+        durationMinutes = other.durationMinutes;
+        distanceKm = other.distanceKm;
+    }
+    return *this;
+}
+
+bool CFlightInfo::operator==(const CFlightInfo& other) const
+{
+    return number == other.number;
+}
+
+bool CFlightInfo::operator!=(const CFlightInfo& other) const
+{
+    return !(*this == other);
+}
+
+CFlightInfo::operator int() const
+{
+    return durationMinutes;
+}
+
 
 CFlightInfo::CFlightInfo(const string& dest, const int num, const int minutes, const int distance) :
     number(0), destination(""), durationMinutes(0), distanceKm(0)
@@ -80,18 +107,15 @@ void CFlightInfo::SetDest(const string& val)
     }
 }
 
-bool CFlightInfo::IsEqual(const CFlightInfo& cfi) const
-{
-    return number == cfi.number;
-}
 
-void CFlightInfo::Print() const
-{
-    cout << "Flight Info dest: " << destination << " Number " << number
-        << " minutes " << durationMinutes << " KM " << distanceKm << endl;
-}
 
 CFlightInfo::~CFlightInfo()
 {
 }
 
+std::ostream& operator<<(std::ostream& os, const CFlightInfo& cfi)
+{
+    os << "Flight Info dest: " << cfi.destination << " Number " << cfi.number
+        << " minutes " << cfi.durationMinutes << " KM " << cfi.distanceKm << endl;
+    return os;
+}
