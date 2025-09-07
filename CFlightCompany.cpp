@@ -24,7 +24,8 @@ namespace {
 
 	inline int findFlightIndexByNumber(CFlight* const flights[], int count, int number) {
 		for (int i = 0; i < count; ++i) {
-			if (flights[i] && flightNumberOf(*flights[i]) == number) return i;
+			if (flights[i] && flightNumberOf(*flights[i]) == number) 
+				return i;
 		}
 		return -1;
 	}
@@ -129,7 +130,7 @@ CFlightCompany::~CFlightCompany()
 		delete flights[i];
 		flights[i] = nullptr;
 	}
-	numOfFlights;
+	numOfFlights = 0;
 }
 
 
@@ -155,7 +156,7 @@ void CFlightCompany::Print(std::ostream& os) const
 
 CPlane* CFlightCompany::GetPlane(int index) const
 {
-	if (numOfPlanes == 0)
+	if (numOfPlanes == 0 || index < 0 || index>=numOfPlanes)
 	{
 		return nullptr;
 	}
@@ -167,7 +168,10 @@ bool  CFlightCompany::AddCrewMember(const CCrewMember& cmr) {
 		return false;
 	if (crewExists(cmr, members, numOfMembers)) 
 		return false;
-	members[numOfMembers++] = new CCrewMember(cmr);
+
+	const int idx = numOfMembers;  // make the index explicit
+	members[idx] = new CCrewMember(cmr);
+	numOfMembers = idx + 1;
 	return true;
 }
 bool CFlightCompany::AddPlane(const CPlane& cp) {
@@ -177,7 +181,9 @@ bool CFlightCompany::AddPlane(const CPlane& cp) {
 		return false;
 	if (planeExists(cp, planes, numOfPlanes)) 
 		return false;
-	planes[numOfPlanes++] = new CPlane(cp);
+	const int idx = numOfPlanes;
+	planes[idx] = new CPlane(cp);
+	numOfPlanes = idx + 1;
 	return true;
 }
 bool CFlightCompany::AddFlight(const CFlight& flt) {
@@ -185,7 +191,10 @@ bool CFlightCompany::AddFlight(const CFlight& flt) {
 		return false;
 	if (flightExists(flt, flights, numOfFlights)) 
 		return false;
-	flights[numOfFlights++] = new CFlight(flt);
+
+	const int idx = numOfFlights;
+	flights[idx] = new CFlight(flt);
+	numOfFlights = idx + 1;
 	return true;
 }
 void CFlightCompany::AddCrewToFlight(const int flightNum, const int memberId) {

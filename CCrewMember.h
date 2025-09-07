@@ -44,7 +44,7 @@ public:
 	CCrewMember& operator=(const CCrewMember& other);
 	bool operator==(const CCrewMember& other) const;
 	friend std::ostream& operator<<(std::ostream& os, const CCrewMember& cmr);
-	//CCrewMember& operator+=(const int minutes);
+	
 	bool operator+=(const int minutes);
 
 

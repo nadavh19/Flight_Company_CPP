@@ -81,7 +81,10 @@ CFlight CFlight::operator+(const CCrewMember& cmr) const
     CFlight res(*this);
     if (res.numOfMembers < MAX_CREW && !res.hasMemberByName(cmr.getName()))
     {
-        res.members[res.numOfMembers++] = new CCrewMember(cmr);
+        const int idx = res.numOfMembers;
+        
+        res.members[idx] = new CCrewMember(cmr);
+        res.numOfMembers = idx + 1;
     }
     return res;
     
@@ -123,7 +126,7 @@ CFlight& CFlight::operator=(const CFlight& other)
         members[i] = nullptr;
     }
     info = other.info;
-    plane = other.plane;
+    plane = new CPlane(*other.plane);
     return *this;
 }
 
