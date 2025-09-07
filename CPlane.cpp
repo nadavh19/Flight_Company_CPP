@@ -80,6 +80,6 @@ CPlane::~CPlane()
 
 std::ostream& operator<<(std::ostream& os, const CPlane& p)
 {
-	os << "Plane " << p.serialNum << " " << p.model << " " << p.numOfChairs << endl;
+	os << "Plane " << p.serialNum << " degem " << p.model << " " << p.numOfChairs << endl;
 	return os;
 }

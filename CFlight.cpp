@@ -73,11 +73,6 @@ void CFlight::SetPlane(const CPlane* other)
 CFlight CFlight::operator+(const CCrewMember& cmr) const
 {
 
-    if (!cmr.isValidCrewMember(cmr.getName(), cmr.getAddress(), cmr.getAirTime())) 
-    {
-        return *this;
-    }
-
     CFlight res(*this);
     if (res.numOfMembers < MAX_CREW && !res.hasMemberByName(cmr.getName()))
     {

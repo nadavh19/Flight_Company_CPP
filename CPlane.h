@@ -6,12 +6,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-//•	המספר הסידורי של המטוס יהיה מספר סידורי המנוהל פנימית ע"י המערכת. מספר סידורי ראשוני הינו 100. שנה את הבנאים בהתאם
-//•	אופרטור >> הדפסה באמצעות ה - cout
-//•	אופרטור ++ המוסיף כיסא למטוס.עם אפשרות שימוש ב - prefix ו - postfix.
 
-
-//need to change serialNum to a const
 
 
 class CPlane

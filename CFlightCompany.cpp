@@ -263,6 +263,7 @@ bool CFlightCompany::operator==(const CFlightCompany& other)
 
 std::ostream& operator<<(std::ostream& os, const CFlightCompany& company)
 {
+	os << "Flight Company: " << company.name << endl; 
 	os << "There are " << company.numOfMembers << " Crew members:" << endl;
 	if(company.numOfMembers > 0)
 	{
