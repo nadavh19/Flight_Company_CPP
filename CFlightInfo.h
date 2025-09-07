@@ -22,7 +22,7 @@ public:
 	CFlightInfo(const string& dest, const int num, const int minutes, const int distance);
 	CFlightInfo(const CFlightInfo& other);
 	~CFlightInfo();
-	int getNumber() const;
+	int GetFNum() const;
 	int getDurationMinutes() const;
 	int getDistanceKm() const;
 	string getDestination() const;

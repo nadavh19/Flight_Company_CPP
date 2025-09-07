@@ -1,7 +1,7 @@
 #include "CCrewMember.h"
 
 
-int CCrewMember::nextId = 1000;
+int CCrewMember::nextId = CCrewMember::START_ID;
 
 bool CCrewMember::isValidCrewMember(const string& name, const CAddress& address, const int airTime)const
 {
@@ -31,13 +31,22 @@ bool CCrewMember::operator==(const CCrewMember& other) const
     return id == other.id;
 }
 
-CCrewMember& CCrewMember::operator+=(const int minutes)
+//CCrewMember& CCrewMember::operator+=(const int minutes)
+//{
+//    if (minutes > 0)
+//    {
+//        airTime += minutes;
+//    }
+//    return *this;
+//}
+bool CCrewMember::operator+=(const int minutes)
 {
     if (minutes > 0)
     {
         airTime += minutes;
+        return true;
     }
-    return *this;
+    return false;
 }
 
 CCrewMember::CCrewMember(const string& n, const CAddress& ad, const int at) :
@@ -47,17 +56,33 @@ CCrewMember::CCrewMember(const string& n, const CAddress& ad, const int at) :
     {
         setName(n);
         airTime = at;
+        
     }
 
 }
 
-CCrewMember::CCrewMember(const string& n, const CAddress& ad) : name(n), address(ad), airTime(0),id(nextId++)
+CCrewMember::CCrewMember(const string& n, const CAddress& ad) : name(""), address(ad), airTime(0), id(nextId++)
 {
     if (n.length() > 0 || ad.isValidAddress(ad.getHomeNumber(), ad.getStreet(), ad.getCity()))
     {
-        name = n;
+        setName(n);
         address = ad;
     }
+}
+
+CCrewMember::CCrewMember(const string& n, const int at) 
+    :name(""), address(0, "Unknown"), airTime(0), id(nextId++)
+{
+    
+    setName(n);
+    (void*)(UpdateMinutes(at));
+    
+   
+}
+
+CCrewMember::CCrewMember(const string& n): name(""), address(0, "Unknown"), airTime(0), id(nextId++)
+{
+    setName(n);
 }
 
 CCrewMember::CCrewMember(const CCrewMember& other) :
@@ -80,9 +105,14 @@ CAddress CCrewMember::getAddress() const
     return address;
 }
 
+int CCrewMember::getId() const
+{
+    return id;
+}
+
 void CCrewMember::setName(const string& diffname)
 {
-    if (name.length() > 0)
+    if (diffname.length() > 0)
     {
         name = diffname;
     }

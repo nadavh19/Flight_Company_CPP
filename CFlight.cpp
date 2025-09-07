@@ -1,90 +1,135 @@
 #include "CFlight.h"
-#include <new>
 
-const int CFlight::MAX_CREW = 10;
 
-CFlight::CFlight(const CFlightInfo& info): info(info), hasPlane(false), plane(nullptr), members(nullptr), numOfMembers(0)
+
+
+CFlight::CFlight(const CFlightInfo& info): info(info), plane(nullptr), numOfMembers(0)
 {
+    for (int i = 0;i < MAX_CREW;++i)
+    {
+        members[i] = nullptr;
+    }
 }
 
-CFlight::CFlight(const CFlightInfo& info, const CPlane& plane): info(info), hasPlane(false),plane(nullptr), members(nullptr), numOfMembers(0)
+CFlight::CFlight(const CFlightInfo& info, const CPlane* plane)
+    : info(info), numOfMembers(0),plane(nullptr)
 {
+
+    for (int i = 0;i < MAX_CREW;++i)
+    {
+        members[i] = nullptr;
+    }
 	SetPlane(plane);
 }
 
 CFlight::CFlight(const CFlight& other):
-	info(other.info),plane(other.plane),hasPlane(other.hasPlane),
-	members(other.members),numOfMembers(other.numOfMembers)
+	info(other.info),plane(nullptr),
+	numOfMembers(other.numOfMembers)
 {
+    if (other.plane)
+    {
+        plane = new CPlane(*other.plane);
+    }
+
+    for (int i = 0; i < MAX_CREW; ++i) 
+    {
+        members[i] = nullptr;
+    }
+    for (int i = 0; i < numOfMembers; i++)
+    {
+        members[i] = new CCrewMember(*other.members[i]);
+    }
+    
 }
 
 CFlight::~CFlight()
 {
-    
-    for (int i = 0; i < numOfMembers; i++) {
+    for (int i = 0;i < numOfMembers;++i)
+    {
         delete members[i];
         members[i] = nullptr;
     }
 
-    delete[] members;
-    members = nullptr;
-
-    
     delete plane;
     plane = nullptr;
+      
 }
 
-void CFlight::SetPlane(const CPlane& other)
+void CFlight::SetPlane(const CPlane* other)
 {
-    if (other.isValidPlane(other.getNumOfChairs(), other.getModel()))
+    if (other->isValidPlane(other->getNumOfChairs(), other->getModel()))
     {
-        delete this->plane;              
-        this->plane = nullptr;
-        this->plane = new CPlane(other); 
-        hasPlane = true;
+        if (!plane)
+        {
+            plane = new CPlane(*other);
+        }
+        else
+        {
+            *plane = *other;
+        }
     }
     
 }
 CFlight CFlight::operator+(const CCrewMember& cmr) const
 {
 
-    if (numOfMembers >= MAX_CREW || hasMemberByName(cmr.getName())|| 
-        !(cmr.isValidCrewMember(cmr.getName(),cmr.getAddress(),cmr.getAirTime())))
+    if (!cmr.isValidCrewMember(cmr.getName(), cmr.getAddress(), cmr.getAirTime())) 
     {
         return *this;
     }
-    CFlight newFlight(*this);
 
-    
-    CCrewMember** newArr = new CCrewMember * [newFlight.numOfMembers + 1];
-
-    
-    for (int i = 0; i < newFlight.numOfMembers; ++i)
+    CFlight res(*this);
+    if (res.numOfMembers < MAX_CREW && !res.hasMemberByName(cmr.getName()))
     {
-        newArr[i] = new CCrewMember(*newFlight.members[i]);
+        res.members[res.numOfMembers++] = new CCrewMember(cmr);
     }
+    return res;
+    
+    
 
     
-    newArr[newFlight.numOfMembers] = new CCrewMember(cmr);
-
-    
-    for (int i = 0; i < newFlight.numOfMembers; ++i)
-    {
-        delete newFlight.members[i];
-    }
-    delete[] newFlight.members;
-
-    
-    newFlight.members = newArr;
-    ++newFlight.numOfMembers;
-
-    return newFlight;
 
 }
 
 bool CFlight::operator==(const CFlight& other) const
 {
     return info == other.info;
+}
+
+CFlight& CFlight::operator=(const CFlight& other)
+{
+    if (this == &other) 
+    {
+        return *this;
+    }
+    for (int i = 0;i < numOfMembers;++i) 
+    {
+
+        delete members[i];
+        members[i] = nullptr;
+    }
+    
+    numOfMembers = other.numOfMembers;
+    
+
+    for (int i = 0;i < numOfMembers;++i)
+    {
+        members[i] = new CCrewMember(*other.members[i]);
+
+    }
+    for (int i = numOfMembers;i < MAX_CREW;++i)
+    {
+
+        members[i] = nullptr;
+    }
+    info = other.info;
+    plane = other.plane;
+    return *this;
+}
+
+CFlightInfo CFlight::getInfo() const
+{
+    return info;
 }
 
 bool CFlight::hasMemberByName(const string& name) const
@@ -101,4 +146,25 @@ bool CFlight::hasMemberByName(const string& name) const
 
 
 
+std::ostream& operator<<(std::ostream& os, const CFlight& flt)
+{
+    os << "Flight " << flt.info;
+    if (!flt.plane)
+    {
+        os << "No plane assign yet ";
+    }
+    else
+    {
+        os << *flt.plane;
+    }
+    os << "There are " << flt.numOfMembers << " crew memebers in flight:" << endl;
+    if (flt.numOfMembers != 0)
+    {
+        for (int i = 0; i < flt.numOfMembers; i++)
+        {
+            os << *flt.members[i];
+        }
+    }
 
+    return os;
+}

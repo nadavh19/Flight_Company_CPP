@@ -21,14 +21,20 @@ private:
 
 
 public:
+
+	const static int START_ID = 1000;
+
 	CCrewMember(const string& n, const CAddress& ad, const int at);
 	CCrewMember(const string& n, const CAddress& ad);
+	CCrewMember(const string& n, const int at);
+	CCrewMember(const string& n);
 	CCrewMember(const CCrewMember& other);
 	~CCrewMember();
 
 	string getName() const;
 	int getAirTime() const;
 	CAddress getAddress() const;
+	int getId() const;
 
 	void setName(const string& diffname);
 	void setAddress(const CAddress& ad);
@@ -38,7 +44,8 @@ public:
 	CCrewMember& operator=(const CCrewMember& other);
 	bool operator==(const CCrewMember& other) const;
 	friend std::ostream& operator<<(std::ostream& os, const CCrewMember& cmr);
-	CCrewMember& operator+=(const int minutes);
+	//CCrewMember& operator+=(const int minutes);
+	bool operator+=(const int minutes);
 
 
 

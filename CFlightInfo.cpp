@@ -53,7 +53,7 @@ CFlightInfo::CFlightInfo(const CFlightInfo& other) :
 {
 }
 
-int CFlightInfo::getNumber() const
+int CFlightInfo::GetFNum() const
 {
     return number;
 }
